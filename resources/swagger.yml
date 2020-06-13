@@ -1,0 +1,35 @@
+swagger: 2.0
+info:
+  title: PRAGO
+  version: 0.0.1
+  description: 프라곤 - 최저가 사이트
+host: *
+basePath: /api/
+tags:
+  - name: Account
+    description: 유저 계정관련 api
+schemes:
+  - https
+
+path:
+  /api/account/:
+    post:
+      tags:
+        - Account
+      summary: 로그인
+      description: 로그인
+      consumes:
+        - application/json
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            required: true
+            schema:
+              $ref: '#/definitions/LoginParam'
+        responses:
+          200:
+            description: 로그인 성공
+            schema:
+              $ref: '#/definitions/LoginResponse'
