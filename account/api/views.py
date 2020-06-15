@@ -11,7 +11,4 @@ from . import serializers
 
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = models.UserAccounts.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
     serializer_class = serializers.UserAccountSerializer
