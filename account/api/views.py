@@ -9,3 +9,5 @@ from . import permissions
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = models.UserAccounts.objects.all()
     serializer_class = serializers.UserAccountSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateOwnAccount,)
