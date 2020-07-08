@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 
 class SearchListView(View):
-    pass
+    """CSRF 에러발생"""
     def post(self, request):
         url_list = models.SiteInfo.objects.filter().values_list('url')
         site_name_list = models.SiteInfo.objects.filter().values_list('site_name')
