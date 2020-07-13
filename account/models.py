@@ -80,10 +80,11 @@ class UserAccountsManager(BaseUserManager):
 class UserAccounts(AbstractBaseUser, PermissionsMixin):
     """유저 계정 모델"""
 
-    user_id = models.CharField(validators=[MinLengthValidator(2)], max_length=16, unique=True)
+    user_id = models.CharField(validators=[MinLengthValidator(2)], max_length=16, primary_key=True)
     name = models.CharField(max_length=200)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now=True)
 
     objects = UserAccountsManager()
 
@@ -97,5 +98,5 @@ class UserAccounts(AbstractBaseUser, PermissionsMixin):
         return self.user_id
 
     class Meta:
-        ordering = ['id']
+        ordering = ['user_id']
         verbose_name = "useraccount"
