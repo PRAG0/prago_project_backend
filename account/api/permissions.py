@@ -9,4 +9,4 @@ class UpdateOwnAccount(permissions.BasePermission):
             return True
         # 그 외의 조작이 가능한 ((문맥상) 안전하지않은)메소드로 요청시, 요청자가 검증된 사용자인지 검사
         # id가 맞으면 True, 아니면 False
-        return obj.id == request.user.id
+        return obj.user_id == request.user.user_id

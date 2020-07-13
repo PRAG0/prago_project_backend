@@ -16,7 +16,7 @@ class AccountViewSet(viewsets.ModelViewSet):
 
 
 class LoginViewSet(viewsets.ViewSet):
-    serializer_class = AuthTokenSerializer
+    serializer_class = serializers.LoginSerializer
 
     def create(self, request):
         """유효한 필드 값인지 확인 후 Token 생성"""
