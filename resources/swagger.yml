@@ -21,7 +21,7 @@ path:
       consumes:
         - application/json
       produces:
-          - application/json
+        - application/json
       parameters:
         - in: body
           name: body
@@ -54,17 +54,17 @@ path:
           description: URI에서 user_id값으로 접근 admin일 시 모두 수정가능, 일반유저는 자신의 계정만 수정가능
           consumes:
             - application/json
-            produces:
-              - application/json
-            parameters:
-              - in: body
-                name: body
-                required: true
-                schema:
-                  $ref: '#/definitions/MypageParam'
-            response:
-              200:
-                description: 수정 성공
+          produces:
+            - application/json
+          parameters:
+            - in: body
+              name: body
+              required: true
+              schema:
+                $ref: '#/definitions/MypageParam'
+          response:
+            200:
+              description: 수정 성공
       delete:
         tags:
           - Mypage
