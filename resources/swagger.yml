@@ -4,7 +4,6 @@ info:
   version: 0.0.1
   description: 프라곤 - 최저가 사이트
 host: *
-basePath: /api/
 tags:
   - name: Account
     description: 유저 계정관련 api
