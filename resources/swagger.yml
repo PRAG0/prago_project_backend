@@ -3,7 +3,8 @@ info:
   title: PRAGO
   version: 0.0.1
   description: 프라곤 - 최저가 사이트
-host: *
+host: 192.168.137.1
+port: 8080
 tags:
   - name: Account
     description: 유저 계정관련 api
