@@ -12,12 +12,12 @@ schemes:
   - https
 
 path:
-  /api/account/:
+  /account_api/account/:
     post:
       tags:
-        - Account
-      summary: 로그인
-      description: 로그인
+        - Signup
+      summary: 회원가입
+      description: 회원가입 POST 요청
       consumes:
         - application/json
         produces:
@@ -27,9 +27,150 @@ path:
             name: body
             required: true
             schema:
-              $ref: '#/definitions/LoginParam'
+              $ref: '#/definitions/SignupParam'
         responses:
           200:
-            description: 로그인 성공
+            description: 회원가입 성공
             schema:
-              $ref: '#/definitions/LoginResponse'
+              $ref: '#/definitions/SignupResponse'
+    get:
+      tags:
+        - Signup
+        description: 유저조회
+        consumes:
+          - application/json
+          produces:
+            - application/json
+          responses:
+            200:
+              desctiption: 유저조회 성공
+              schema:
+                $ref: '#/definitions/SignupResponse'
+    /account_api/account/{user_id}:
+      post:
+        tags:
+          - Mypage
+          summary: 계정수정
+          description: URI에서 user_id값으로 접근 admin일 시 모두 수정가능, 일반유저는 자신의 계정만 수정가능
+          consumes:
+            - application/json
+              produces:
+                - application/json
+              parameters:
+                - in: body
+                  name: body
+                  required: true
+                  schema:
+                    $ref: '#/definitions/MypageParam'
+              response:
+                200:
+                  description: 수정 성공
+      delete:
+        tags:
+          - Mypage
+          summary: 계정삭제
+          description: 자신의 id와 맞는 계정이면 삭제가능
+          consumes:
+            - application/json
+            produces:
+              - application/json
+            responses:
+              200:
+                desctiption: 유저삭제 성공
+      get:
+        tags:
+          - Mypage
+          summary: 정보조회
+          description: 유저정보조회
+          consumes:
+            - application/json
+            produces:
+              - application/json
+            responses:
+              200:
+                desctiption: 유저조회 성공
+                  $ref: '#/definitions/MypageResponse'
+    /account_api/login/:
+      post:
+        tags:
+          - login
+          summary: 로그인
+          description: 로그인 성공시 Token발급
+          consumes:
+            - application/json
+            produces:
+              - application/json
+              parameters:
+                - in: body
+                  name: body
+                  required: true
+                  schema:
+                    $ref: '#/definitions/LoginParam'
+              response:
+                200:
+                  description: 로그인 성공
+                  schema:
+                    $ref: '#/definitions/MypageResponse'
+#    /search_api/search/?{query}:
+#      get:
+#        tags:
+#          - search
+#          summary: 검색
+#          description: 쿼리문을 통해 상품명을 전달받음
+#          consumes:
+#            - application/json
+#            produces:
+#              - application/json
+#            responses:
+#              200:
+#                description: 검색성공
+#                  schema:
+#                    $ref: '#/definitions/SearchResponse'
+definitions:
+  SignupParam:
+    type: "object"
+    required:
+      - user_id
+      - name
+      - password
+    properties:
+      user_id:
+        type: "string"
+        description: 유저아이디, PK, 글자제한 2~16
+      name:
+        type: "string"
+        description: 유저이름
+      password:
+        type: "string"
+        format: "password"
+        description: 비밀번호
+  SignupResponse:
+    descriptoin: super user와 일반 유저를 나누어 생성가능
+    type: "object"
+    properties:
+        "user_id": "admin",
+        "name": "이규준"
+
+  MypageParam:
+    type: "object"
+    required:
+      - user_id
+      - name
+      - password
+      properties:
+        user_id:
+          type: "string"
+          description: 유저아이디, PK, 글자제한 2~16
+        name:
+          type: "string"
+          description: 유저이름
+        password:
+          type: "string"
+          format: "password"
+          description: 비밀번호
+  MypageResponse:
+    descriptoin: super user와 일반 유저를 나누어 생성가능
+    type: "object"
+    properties:
+      "user_id": "admin edit",
+      "name": "이규준 수정"
