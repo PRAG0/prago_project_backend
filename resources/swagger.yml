@@ -7,8 +7,12 @@ host: 192.168.137.1
 port: 8080
 base path: /
 tags:
-  - name: Account
+  - name: Signup
     description: 유저 계정관련 api
+  - name: Mypage
+    description: 유저 계정 조회 및 수정 api
+  - name: login
+    description: 로그인 & 토큰 발급 api
 schemes:
   - https
 securityDefinitions:
