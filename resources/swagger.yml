@@ -149,7 +149,6 @@ definitions:
   SignupResponse:
     descriptoin: super user와 일반 유저를 나누어 생성가능
     type: "object"
-
   MypageParam:
     type: "object"
     required:
