@@ -3,8 +3,7 @@ info:
   title: PRAGO
   version: 0.0.1
   description: 프라곤 - 최저가 사이트
-host: 192.168.137.1
-port: 8080
+# host: 192.168.137.1
 base path: /
 tags:
   - name: "Signup"
