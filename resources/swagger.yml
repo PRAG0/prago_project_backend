@@ -101,17 +101,17 @@ path:
           - application/json
         produces:
           - application/json
-          parameters:
-            - in: body
-            name: body
-            required: true
+        parameters:
+          - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/LoginParam'
+        response:
+          200:
+            description: 로그인 성공
             schema:
-              $ref: '#/definitions/LoginParam'
-          response:
-            200:
-              description: 로그인 성공
-              schema:
-                $ref: '#/definitions/MypageResponse'
+              $ref: '#/definitions/MypageResponse'
 #    /search_api/search/?{query}:
 #      get:
 #        tags:
