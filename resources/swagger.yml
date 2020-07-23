@@ -20,7 +20,7 @@ securityDefinitions:
     name: Authorization
     in: header
 
-path:
+paths:
   /account_api/account/:
     post:
       tags:
