@@ -90,6 +90,7 @@ path:
         responses:
           200:
             desctiption: 유저조회 성공
+            schema:
               $ref: '#/definitions/MypageResponse'
     /account_api/login/:
       post:
