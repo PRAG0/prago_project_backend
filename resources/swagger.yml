@@ -149,9 +149,6 @@ definitions:
   SignupResponse:
     descriptoin: super user와 일반 유저를 나누어 생성가능
     type: "object"
-    properties:
-        "user_id": "admin",
-        "name": "이규준"
 
   MypageParam:
     type: "object"
@@ -173,6 +170,3 @@ definitions:
   MypageResponse:
     descriptoin: super user와 일반 유저를 나누어 생성가능
     type: "object"
-    properties:
-      "user_id": "admin edit",
-      "name": "이규준 수정"
