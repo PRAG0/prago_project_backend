@@ -12,7 +12,7 @@ tags:
 schemes:
   - https
 securityDefinitions:
-  Bearer:
+  Token:
     type: apiKey
     name: Authorization
     in: header
