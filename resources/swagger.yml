@@ -112,7 +112,7 @@ path:
           200:
             description: 로그인 성공
             schema:
-              $ref: '#/definitions/MypageResponse'
+              $ref: '#/definitions/LoginResponse'
 #    /search_api/search/?{query}:
 #      get:
 #        tags:
@@ -152,8 +152,6 @@ definitions:
   MypageParam:
     type: "object"
     required:
-      - user_id
-      - name
       - password
     properties:
       user_id:
@@ -169,3 +167,28 @@ definitions:
   MypageResponse:
     descriptoin: super user와 일반 유저를 나누어 생성가능
     type: "object"
+  LoginParam:
+    descriptoin: 로그인 성공시 Token발급
+    type: "object"
+    required:
+      - user_id
+      - name
+      - password
+    properties:
+      user_id:
+        type: "string"
+        description: 유저아이디, PK, 글자제한 2~16
+      name:
+        type: "string"
+        description: 유저이름
+      password:
+        type: "string"
+        format: "password"
+        description: 비밀번호
+  LoginResponse:
+    description: token 리턴
+    type: "object"
+    properties:
+      token:
+        type: "string"
+        example: "Token ec6ac39996beac1839d04becd1c6b7b70be37516"
