@@ -10,7 +10,7 @@ tags:
     description: "유저 계정관련 api"
   - name: "Mypage"
     description: "유저 계정 조회 및 수정 api"
-  - name: "login"
+  - name: "Login"
     description: "로그인 & 토큰 발급 api"
 schemes:
   - "https"
@@ -28,12 +28,12 @@ paths:
       summary: "회원가입"
       description: "회원가입 POST 요청"
       consumes:
-        - application/json
+        - "application/json"
       produces:
-        - application/json
+        - "application/json"
       parameters:
-        - in: body
-          name: body
+        - in: "body"
+          name: "body"
           description: "회원가입 파라미터"
           required: true
           schema:
@@ -49,9 +49,9 @@ paths:
       summary: "회원가입"
       description: "유저조회"
       consumes:
-        - application/json
+        - "application/json"
       produces:
-        - application/json
+        - "application/json"
       responses:
         200:
           desctiption: "유저조회 성공"
@@ -60,7 +60,7 @@ paths:
   /account_api/account/{user_id}:
     post:
       tags:
-        - Mypage
+        - "Mypage"
       summary: "계정수정"
       description: "URI에서 user_id값으로 접근 admin일 시 모두 수정가능, 일반유저는 자신의 계정만 수정가능"
       consumes:
@@ -68,8 +68,8 @@ paths:
       produces:
         - application/json
       parameters:
-        - in: body
-          name: body
+        - in: "body"
+          name: "body"
           required: true
           schema:
             $ref: '#/definitions/MypageParam'
@@ -78,25 +78,25 @@ paths:
           description: "수정 성공"
     delete:
       tags:
-        - Mypage
+        - "Mypage"
       summary: "계정삭제"
       description: "자신의 id와 맞는 계정이면 삭제가능"
       consumes:
-        - application/json
+        - "application/json"
       produces:
-        - application/json
+        - "application/json"
       responses:
         200:
           desctiption: "유저삭제 성공"
     get:
       tags:
-        - Mypage
+        - "Mypage"
       summary: "정보조회"
       description: "유저정보조회"
       consumes:
-        - application/json
+        - "application/json"
       produces:
-        - application/json
+        - "application/json"
       responses:
         200:
           desctiption: "유저조회 성공"
@@ -105,13 +105,13 @@ paths:
   /account_api/login/:
     post:
       tags:
-        - login
+        - "Login"
       summary: "로그인"
       description: "로그인 성공시 Token발급"
       consumes:
-        - application/json
+        - "application/json"
       produces:
-        - application/json
+        - "application/json"
       parameters:
         - in: body
           name: body
