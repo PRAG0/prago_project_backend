@@ -24,7 +24,7 @@ path:
   /account_api/account/:
     post:
       tags:
-        - "Signup"
+        - Signup
       summary: "회원가입"
       description: "회원가입 POST 요청"
       consumes:
@@ -156,7 +156,7 @@ definitions:
         format: "password"
         description: "비밀번호"
   SignupResponse:
-    descriptoin: "super user와 일반 유저를 나누어 생성가능"
+    description: "super user와 일반 유저를 나누어 생성가능"
     type: "object"
   MypageParam:
     type: "object"
