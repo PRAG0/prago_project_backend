@@ -1,8 +1,8 @@
-swagger: 2.0
+swagger: "2.0"
 info:
-  description: 프라곤 - 최저가 사이트
-  version: 0.0.1
-  title: PRAGO
+  description: "프라곤 - 최저가 사이트"
+  version: "0.0.1"
+  title: "PRAGO"
 # host: 192.168.137.1
 base path: "/"
 tags:
@@ -24,7 +24,7 @@ path:
   /account_api/account/:
     post:
       tags:
-        - Signup
+        - "Signup"
       summary: "회원가입"
       description: "회원가입 POST 요청"
       consumes:
