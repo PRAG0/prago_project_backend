@@ -1,203 +1,778 @@
-swagger: 2.0
+#swagger: 2.0
+#info:
+#  title: PRAGO
+#  version: 0.0.1
+#  description: 프라곤 - 최저가 사이트
+## host: 192.168.137.1
+#base path: /
+#tags:
+#  - name: "Signup"
+#    description: "유저 계정관련 api"
+#  - name: "Mypage"
+#    description: "유저 계정 조회 및 수정 api"
+#  - name: "login"
+#    description: "로그인 & 토큰 발급 api"
+#schemes:
+#  - https
+#securityDefinitions:
+#  Token:
+#    type: apiKey
+#    name: Authorization
+#    in: header
+#
+#path:
+#  /account_api/account/:
+#    post:
+#      tags:
+#        - Signup
+#      summary: "회원가입"
+#      description: "회원가입 POST 요청"
+#      consumes:
+#        - application/json
+#      produces:
+#        - application/json
+#      parameters:
+#        - in: body
+#          name: body
+#          required: true
+#          schema:
+#            $ref: '#/definitions/SignupParam'
+#      responses:
+#        200:
+#          description: "회원가입 성공"
+#          schema:
+#            $ref: '#/definitions/SignupResponse'
+#    get:
+#      tags:
+#        - "Signup"
+#      summary: "회원가입"
+#      description: "유저조회"
+#      consumes:
+#        - application/json
+#      produces:
+#        - application/json
+#      responses:
+#        200:
+#          desctiption: "유저조회 성공"
+#          schema:
+#            $ref: '#/definitions/SignupResponse'
+#    /account_api/account/{user_id}:
+#      post:
+#        tags:
+#          - Mypage
+#        summary: "계정수정"
+#        description: "URI에서 user_id값으로 접근 admin일 시 모두 수정가능, 일반유저는 자신의 계정만 수정가능"
+#        consumes:
+#          - application/json
+#        produces:
+#          - application/json
+#        parameters:
+#          - in: body
+#            name: body
+#            required: true
+#            schema:
+#              $ref: '#/definitions/MypageParam'
+#        response:
+#          200:
+#            description: "수정 성공"
+#      delete:
+#        tags:
+#          - Mypage
+#        summary: "계정삭제"
+#        description: "자신의 id와 맞는 계정이면 삭제가능"
+#        consumes:
+#          - application/json
+#        produces:
+#          - application/json
+#        responses:
+#          200:
+#            desctiption: "유저삭제 성공"
+#      get:
+#        tags:
+#          - Mypage
+#        summary: "정보조회"
+#        description: "유저정보조회"
+#        consumes:
+#          - application/json
+#        produces:
+#          - application/json
+#        responses:
+#          200:
+#            desctiption: "유저조회 성공"
+#            schema:
+#              $ref: '#/definitions/MypageResponse'
+#    /account_api/login/:
+#      post:
+#        tags:
+#          - login
+#        summary: "로그인"
+#        description: "로그인 성공시 Token발급"
+#        consumes:
+#          - application/json
+#        produces:
+#          - application/json
+#        parameters:
+#          - in: body
+#            name: body
+#            required: true
+#            schema:
+#              $ref: '#/definitions/LoginParam'
+#        response:
+#          200:
+#            description: "로그인 성공"
+#            schema:
+#              $ref: '#/definitions/LoginResponse'
+##    /search_api/search/?{query}:
+##      get:
+##        tags:
+##          - search
+##          summary: 검색
+##          description: 쿼리문을 통해 상품명을 전달받음
+##          consumes:
+##            - application/json
+##            produces:
+##              - application/json
+##            responses:
+##              200:
+##                description: 검색성공
+##                  schema:
+##                    $ref: '#/definitions/SearchResponse'
+#definitions:
+#  SignupParam:
+#    type: "object"
+#    required:
+#      - user_id
+#      - name
+#      - password
+#    properties:
+#      user_id:
+#        type: "string"
+#        description: "유저아이디, PK, 글자제한 2~16"
+#      name:
+#        type: "string"
+#        description: "유저이름"
+#      password:
+#        type: "string"
+#        format: "password"
+#        description: "비밀번호"
+#  SignupResponse:
+#    description: "super user와 일반 유저를 나누어 생성가능"
+#    type: "object"
+#  MypageParam:
+#    type: "object"
+#    required:
+#      - password
+#    properties:
+#      user_id:
+#        type: "string"
+#        description: "유저아이디, PK, 글자제한 2~16"
+#      name:
+#        type: "string"
+#        description: "유저이름"
+#      password:
+#        type: "string"
+#        format: "password"
+#        description: "비밀번호"
+#  MypageResponse:
+#    descriptoin: "super user와 일반 유저를 나누어 생성가능"
+#    type: "object"
+#  LoginParam:
+#    descriptoin: "로그인 성공시 Token발급"
+#    type: "object"
+#    required:
+#      - user_id
+#      - name
+#      - password
+#    properties:
+#      user_id:
+#        type: "string"
+#        description: "유저아이디, PK, 글자제한 2~16"
+#      name:
+#        type: "string"
+#        description: "유저이름"
+#      password:
+#        type: "string"
+#        format: "password"
+#        description: "비밀번호"
+#  LoginResponse:
+#    description: "token 리턴"
+#    type: "object"
+#    properties:
+#      token:
+#        type: "string"
+#        example: "Token ec6ac39996beac1839d04becd1c6b7b70be37516"
+
+swagger: "2.0"
 info:
-  title: PRAGO
-  version: 0.0.1
-  description: 프라곤 - 최저가 사이트
-# host: 192.168.137.1
-base path: /
+  description: "Java Project"
+  version: "0.0.1"
+  title: "gugic_mon"
+#host: ""
+basePath: "/"
 tags:
-  - name: "Signup"
-    description: "유저 계정관련 api"
-  - name: "Mypage"
-    description: "유저 계정 조회 및 수정 api"
-  - name: "login"
-    description: "로그인 & 토큰 발급 api"
+  - name: "Company"
+    description: "기업 관련 api"
+#  - name: "Allocation"
+#    description: "할당 시간 관련 api"
+#  - name: "Category"
+#    description: "카테고리 관련 api"
+#  - name: "Calendar"
+#    description: "일정 관리 api"
 schemes:
-  - https
+  - "https"
 securityDefinitions:
-  Token:
+  Bearer:
     type: apiKey
     name: Authorization
     in: header
 
-path:
-  /account_api/account/:
+paths:
+  /9gic/Co_users/signup:
     post:
       tags:
-        - Signup
-      summary: "회원가입"
-      description: "회원가입 POST 요청"
+        - "Company"
+      summary: "기업 회원가입 세팅"
+      description: "회원가입"
       consumes:
-        - application/json
+        - "application/json"
       produces:
-        - application/json
+        - "application/json"
       parameters:
-        - in: body
-          name: body
+        - in: "body"
+          name: "body"
+          description: "Registration params"
           required: true
           schema:
-            $ref: '#/definitions/SignupParam'
+            $ref: "#/definitions/SignupParam"
       responses:
-        200:
-          description: "회원가입 성공"
+        201:
+          description: "Co_User created and stored account in DB"
           schema:
             $ref: '#/definitions/SignupResponse'
-    get:
+        400:
+          description: "Invalid registration value"
+        409:
+          description: "User already exists"
+        500:
+          description: "Internal Server Error"
+  /Co_users/signin:
+    post:
       tags:
-        - "Signup"
-      summary: "회원가입"
-      description: "유저조회"
+        - "Account"
+      summary: "login by id and password"
+      description: "로그인"
       consumes:
-        - application/json
+        - "application/json"
       produces:
-        - application/json
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Signin params"
+          required: true
+          schema:
+            $ref: "#/definitions/SigninParam"
       responses:
         200:
-          desctiption: "유저조회 성공"
+          description: "success to verify user"
           schema:
             $ref: '#/definitions/SignupResponse'
-    /account_api/account/{user_id}:
-      post:
-        tags:
-          - Mypage
-        summary: "계정수정"
-        description: "URI에서 user_id값으로 접근 admin일 시 모두 수정가능, 일반유저는 자신의 계정만 수정가능"
-        consumes:
-          - application/json
-        produces:
-          - application/json
-        parameters:
-          - in: body
-            name: body
-            required: true
-            schema:
-              $ref: '#/definitions/MypageParam'
-        response:
-          200:
-            description: "수정 성공"
-      delete:
-        tags:
-          - Mypage
-        summary: "계정삭제"
-        description: "자신의 id와 맞는 계정이면 삭제가능"
-        consumes:
-          - application/json
-        produces:
-          - application/json
-        responses:
-          200:
-            desctiption: "유저삭제 성공"
-      get:
-        tags:
-          - Mypage
-        summary: "정보조회"
-        description: "유저정보조회"
-        consumes:
-          - application/json
-        produces:
-          - application/json
-        responses:
-          200:
-            desctiption: "유저조회 성공"
-            schema:
-              $ref: '#/definitions/MypageResponse'
-    /account_api/login/:
-      post:
-        tags:
-          - login
-        summary: "로그인"
-        description: "로그인 성공시 Token발급"
-        consumes:
-          - application/json
-        produces:
-          - application/json
-        parameters:
-          - in: body
-            name: body
-            required: true
-            schema:
-              $ref: '#/definitions/LoginParam'
-        response:
-          200:
-            description: "로그인 성공"
-            schema:
-              $ref: '#/definitions/LoginResponse'
-#    /search_api/search/?{query}:
-#      get:
-#        tags:
-#          - search
-#          summary: 검색
-#          description: 쿼리문을 통해 상품명을 전달받음
-#          consumes:
-#            - application/json
-#            produces:
-#              - application/json
-#            responses:
-#              200:
-#                description: 검색성공
-#                  schema:
-#                    $ref: '#/definitions/SearchResponse'
+        400:
+          description: "Invalid value"
+        500:
+          description: "Internal Server Error"
+#  /time:
+#    get:
+#      security:
+#        - Bearer: []
+#      tags:
+#        - "Allocation"
+#      summary: "get allocation"
+#      description: "할당 시간 조회"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      responses:
+#        200:
+#          description: "success"
+#          schema:
+#            $ref: "#/definitions/AllocationParam"
+#        204:
+#          description: "No user matches uuid"
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        500:
+#          description: "Internal Server Error"
+#    post:
+#      security:
+#        - Bearer: []
+#      tags:
+#        - "Allocation"
+#      summary: "set allocation"
+#      description: "할당 시간 설정"
+#      operationId: "set_time"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      parameters:
+#        - in: "body"
+#          name: "body"
+#          description: "Allocation params"
+#          required: true
+#          schema:
+#            $ref: "#/definitions/AllocationParam"
+#      responses:
+#        200:
+#          description: "success to allocate"
+#          schema:
+#            $ref: "#/definitions/AllocationParam"
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        500:
+#          description: "Internal Server Error"
+#    patch:
+#      security:
+#        - Bearer: []
+#      tags:
+#        - "Allocation"
+#      summary: "update allocation "
+#      description: "할당 시간 수정"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      parameters:
+#        - in: "body"
+#          name: "body"
+#          description: "Allocation params"
+#          required: true
+#          schema:
+#            $ref: "#/definitions/AllocationParam"
+#      responses:
+#        200:
+#          description: "success"
+#          schema:
+#            $ref: "#/definitions/AllocationParam"
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        500:
+#          description: "Internal Server Error"
+#  /category:
+#    get:
+#      security:
+#        - Bearer: []
+#      tags:
+#        - "Category"
+#      summary: "get category"
+#      description: "카테고리 조회"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      responses:
+#        200:
+#          description: "success to get"
+#          schema:
+#            $ref: '#/definitions/CategoryParam'
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        500:
+#          description: "Internal Server Error"
+#    patch:
+#      tags:
+#        - "Category"
+#      summary: "update category"
+#      description: "카테고리 수정"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      parameters:
+#        - in: "body"
+#          name: "body"
+#          description: "Category params"
+#          required: true
+#          schema:
+#            $ref: "#/definitions/CategoryParam"
+#      responses:
+#        200:
+#          description: "success to update"
+#          schema:
+#            $ref: '#/definitions/CategoryParam'
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        500:
+#          description: "Internal Server Error"
+#  /calendar:
+#    get:
+#      security:
+#        - Bearer: []
+#      tags:
+#        - "Calendar"
+#      summary: "get calendar"
+#      description: "전체 일정 조회"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      responses:
+#        200:
+#          description: "success to get"
+#          schema:
+#            $ref: '#/definitions/GetAllCalendarResponse'
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        500:
+#          description: "Internal Server Error"
+#  /calendar/auto:
+#    post:
+#      security:
+#        - Bearer: []
+#      tags:
+#        - "Calendar"
+#      summary: "add automatic calendar"
+#      description: "자동관리 일정 추가"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      parameters:
+#        - in: "body"
+#          name: "body"
+#          description: "add calendar params"
+#          required: true
+#          schema:
+#            $ref: "#/definitions/AddAutoCalendarParam"
+#      responses:
+#        200:
+#          description: "success to get"
+#          schema:
+#            $ref: '#/definitions/AddAutoCalendarParam'
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        409:
+#          description: "소화할 수 없는 일정입니다."
+#        500:
+#          description: "Internal Server Error"
+#  /calendar/manual:
+#    post:
+#      security:
+#        - Bearer: []
+#      tags:
+#        - "Calendar"
+#      summary: "add manual calendar"
+#      description: "고정일정 추가"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      parameters:
+#        - in: "body"
+#          name: "body"
+#          description: "add calendar params"
+#          required: true
+#          schema:
+#            $ref: "#/definitions/AddManualCalendarParam"
+#      responses:
+#        200:
+#          description: "success to get"
+#          schema:
+#            $ref: '#/definitions/AddManualCalendarParam'
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        409:
+#          description: "소화할 수 없는 일정입니다."
+#        500:
+#          description: "Internal Server Error"
+#  /calendar/auto/<id>:
+#    get:
+#      security:
+#        - Bearer: []
+#      tags:
+#        - "Calendar"
+#      summary: "get automatic calendar"
+#      description: "자동관리 일정 조회"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      responses:
+#        200:
+#          description: "OK"
+#          schema:
+#            $ref: '#/definitions/GetAutoCalendarResponse'
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        500:
+#          description: "Internal Server Error"
+#    patch:
+#      security:
+#        - Bearer: []
+#      tags:
+#        - "Calendar"
+#      summary: "update automatic calendar"
+#      description: "자동관리 일정 수정"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      parameters:
+#        - in: "body"
+#          name: "body"
+#          description: "Category params"
+#          required: true
+#          schema:
+#            $ref: "#/definitions/AddAutoCalendarParam"
+#      responses:
+#        200:
+#          description: "success to update"
+#          schema:
+#            $ref: '#/definitions/GetAutoCalendarResponse'
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        500:
+#          description: "Internal Server Error"
+#  /calendar/manual/<id>:
+#    get:
+#      security:
+#        - Bearer: []
+#      tags:
+#        - "Calendar"
+#      summary: "get manual calendar"
+#      description: "수동관리 일정 조회"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      responses:
+#        200:
+#          description: "OK"
+#          schema:
+#            $ref: '#/definitions/GetManualCalendarResponse'
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        500:
+#          description: "Internal Server Error"
+#    patch:
+#      security:
+#        - Bearer: []
+#      tags:
+#        - "Calendar"
+#      summary: "update manual calendar"
+#      description: "수동관리 일정 수정"
+#      consumes:
+#        - "application/json"
+#      produces:
+#        - "application/json"
+#      parameters:
+#        - in: "body"
+#          name: "body"
+#          description: "Category params"
+#          required: true
+#          schema:
+#            $ref: "#/definitions/AddManualCalendarParam"
+#      responses:
+#        200:
+#          description: "success to update"
+#          schema:
+#            $ref: '#/definitions/GetManualCalendarResponse'
+#        400:
+#          description: "Invalid value"
+#        401:
+#          description: "Wrong Token"
+#        500:
+#          description: "Internal Server Error"
 definitions:
   SignupParam:
     type: "object"
     required:
-      - user_id
-      - name
-      - password
+      - coUserEmail
+      - coUserPassword
+      - coUserCopname
+      - coUserTell
     properties:
-      user_id:
+      coUserEmail:
         type: "string"
-        description: "유저아이디, PK, 글자제한 2~16"
-      name:
-        type: "string"
-        description: "유저이름"
-      password:
+        description: co_user's name
+      coUserPassword1:
         type: "string"
         format: "password"
-        description: "비밀번호"
+        description: minlength 8, AlphanumericPassword
+      coUserCopname:
+        type: "string"
+        description: company name of co_user
+      coUserTell:
+        type: "int"
+        description: co_user's phone number
   SignupResponse:
-    description: "super user와 일반 유저를 나누어 생성가능"
-    type: "object"
-  MypageParam:
-    type: "object"
-    required:
-      - password
-    properties:
-      user_id:
-        type: "string"
-        description: "유저아이디, PK, 글자제한 2~16"
-      name:
-        type: "string"
-        description: "유저이름"
-      password:
-        type: "string"
-        format: "password"
-        description: "비밀번호"
-  MypageResponse:
-    descriptoin: "super user와 일반 유저를 나누어 생성가능"
-    type: "object"
-  LoginParam:
-    descriptoin: "로그인 성공시 Token발급"
-    type: "object"
-    required:
-      - user_id
-      - name
-      - password
-    properties:
-      user_id:
-        type: "string"
-        description: "유저아이디, PK, 글자제한 2~16"
-      name:
-        type: "string"
-        description: "유저이름"
-      password:
-        type: "string"
-        format: "password"
-        description: "비밀번호"
-  LoginResponse:
-    description: "token 리턴"
+    description: returns access token
     type: "object"
     properties:
       token:
         type: "string"
-        example: "Token ec6ac39996beac1839d04becd1c6b7b70be37516"
+        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTY0NjQ2NzIwLCJqdGkiOiJlMGNmZjc1MWIwMTU0OTAzOTllMGM
+  SigninParam:
+    type: "object"
+    required:
+      - coUserEmail
+      - coUserPassword
+    properties:
+      coUserEmail:
+        type: "string"
+        description: user id, minlength 6
+      coUserPassword:
+        type: "string"
+        format: "password"
+        description: minlength 8, AlphanumericPassword
+#  AllocationParam:
+#    type: "object"
+#    required:
+#      - start
+#      - end
+#    properties:
+#      start:
+#        type: "string"
+#        example: "10:30"
+#        description: 할당 시간 중 시작 시간
+#      end:
+#        type: "string"
+#        example: "22:30"
+#        description: 할당 시간 중 끝 시간
+#  CategoryParam:
+#    type: "object"
+#    required:
+#      - purple
+#      - blue
+#      - pink
+#      - orange
+#    properties:
+#      purple:
+#        type: "string"
+#        example: "기타"
+#      blue:
+#        type: "string"
+#        example: "회의, 미팅"
+#      pink:
+#        type: "string"
+#        example: "운동"
+#      orange:
+#        type: "string"
+#        example: "과제, 공부"
+#  AddAutoCalendarParam:
+#    type: "object"
+#    required:
+#      - category
+#      - calendarName
+#      - endTime
+#      - requiredtime
+#    properties:
+#      category:
+#        type: "string"
+#        example: "purple"
+#      calendarName:
+#        type: "string"
+#        example: "그램 회의"
+#      endTime:
+#        type: "string"
+#        example: "2018-07-26"
+#      requiredTime:
+#        type: "number"
+#        example: 1
+#      isParticularImportant:
+#        type: "boolean"
+#        description: "true: 특히 중요함, false: 특히 중요하지는 않음"
+#  AddManualCalendarParam:
+#    type: "object"
+#    required:
+#      - category
+#      - calendarName
+#      - startTime
+#      - endTime
+#    properties:
+#      category:
+#        type: "string"
+#        example: "purple"
+#      calendarName:
+#        type: "string"
+#        example: "그램 회의"
+#      startTime:
+#        type: "string"
+#        example: "2018-07-26 13:00"
+#      endTime:
+#        type: "string"
+#        example: "2018-07-26 17:00"
+#  GetAutoCalendarResponse:
+#    type: "object"
+#    properties:
+#      id:
+#        type: "integer"
+#        description: "일정 번호"
+#        example: 1
+#      category:
+#        type: "string"
+#        example: "purple"
+#      calendarName:
+#        type: "string"
+#        example: "그램 회의"
+#      endTime:
+#        type: "string"
+#        example: "2018-07-26"
+#      requiredTime:
+#        type: "number"
+#        example: 1
+#      isParticularImportant:
+#        type: "boolean"
+#        description: "true: 특히 중요함, false: 특히 중요하지는 않음"
+#      isAuto:
+#        type: "boolean"
+#        example: true
+#  GetManualCalendarResponse:
+#    type: "object"
+#    properties:
+#      id:
+#        type: "integer"
+#        description: "일정 번호"
+#        example: 1
+#      category:
+#        type: "string"
+#        example: "purple"
+#      calendarName:
+#        type: "string"
+#        example: "그램 회의"
+#      startTime:
+#        type: "string"
+#        example: "2018-07-26 03:42"
+#      endTime:
+#        type: "string"
+#        example: "2018-07-26 00:42"
+#      isAuto:
+#        type: "boolean"
+#        example: true
+#  GetAllCalendarResponse:
+#    type: "array"
+#    items:
+#      $ref: '#/definitions/GetManualCalendarResponse'
