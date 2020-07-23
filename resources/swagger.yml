@@ -4,7 +4,7 @@ info:
   version: "0.0.1"
   title: "PRAGO"
 # host: 192.168.137.1
-base path: "/"
+basePath: "/"
 tags:
   - name: "Signup"
     description: "유저 계정관련 api"
