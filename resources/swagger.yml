@@ -156,17 +156,17 @@ definitions:
       - user_id
       - name
       - password
-      properties:
-        user_id:
-          type: "string"
-          description: 유저아이디, PK, 글자제한 2~16
-        name:
-          type: "string"
-          description: 유저이름
-        password:
-          type: "string"
-          format: "password"
-          description: 비밀번호
+    properties:
+      user_id:
+        type: "string"
+        description: 유저아이디, PK, 글자제한 2~16
+      name:
+        type: "string"
+        description: 유저이름
+      password:
+        type: "string"
+        format: "password"
+        description: 비밀번호
   MypageResponse:
     descriptoin: super user와 일반 유저를 나누어 생성가능
     type: "object"
