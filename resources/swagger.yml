@@ -123,21 +123,41 @@ paths:
           description: "로그인 성공"
           schema:
             $ref: '#/definitions/LoginResponse'
-#    /search_api/search/?{query}:
-#      get:
-#        tags:
-#          - search
-#          summary: 검색
-#          description: 쿼리문을 통해 상품명을 전달받음
-#          consumes:
-#            - application/json
-#            produces:
-#              - application/json
-#            responses:
-#              200:
-#                description: 검색성공
-#                  schema:
-#                    $ref: '#/definitions/SearchResponse'
+  /search_api/search/?{query}:
+    post:
+      tags:
+        - "search"
+      summary: "검색"
+      description: "쿼리문을 통해 상품명을 전달받음"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          shema:
+            $ref: '#/definitions/SearchParam'
+      responses:
+        200:
+          description: "검색성공"
+          schema:
+            $ref: '#/definitions/SearchResponse'
+    get:
+      tags:
+        - "Search"
+      summary: "검색기능"
+      description: "post로 요청된 값을 보여줌"
+      consumes:
+        - "application/json"
+        produces:
+          - "application/json"
+        responses:
+          200:
+            desctiption: "검색목록"
+            schema:
+              $ref: '#/definitions/SearchResponse'
 definitions:
   SignupParam:
     type: "object"
@@ -202,3 +222,15 @@ definitions:
       token:
         type: "string"
         example: "Token ec6ac39996beac1839d04becd1c6b7b70be37516"
+  SearchParam:
+    description: "검색 키워드를 받음"
+    type: "object"
+    required:
+      - query
+    properties:
+      query:
+        type: "string"
+        description: "{keyword}"
+  SearchResponse:
+    description: "검색성공"
+    type: "object"
