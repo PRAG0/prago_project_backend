@@ -151,13 +151,13 @@ paths:
       description: "post로 요청된 값을 보여줌"
       consumes:
         - "application/json"
-        produces:
-          - "application/json"
-        responses:
-          200:
-            desctiption: "검색목록"
-            schema:
-              $ref: '#/definitions/SearchResponse'
+      produces:
+        - "application/json"
+      responses:
+        200:
+          desctiption: "검색목록"
+          schema:
+            $ref: '#/definitions/SearchResponse'
 definitions:
   SignupParam:
     type: "object"
