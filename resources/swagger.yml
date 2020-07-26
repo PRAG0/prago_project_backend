@@ -157,7 +157,7 @@ paths:
         200:
           desctiption: "검색목록"
           schema:
-            $ref: '#/definitions/SearchResponse'
+            $ref: "#/definitions/SearchResponse"
 definitions:
   SignupParam:
     type: "object"
