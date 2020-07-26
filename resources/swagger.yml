@@ -140,12 +140,12 @@ paths:
           name: body
           required: true
           shema:
-            $ref: '#/definitions/SearchParam'
+            $ref: "#/definitions/SearchParam"
       responses:
         200:
           description: "검색성공"
           schema:
-            $ref: '#/definitions/SearchResponse'
+            $ref: "#/definitions/SearchResponse"
     get:
       tags:
         - "Search"
