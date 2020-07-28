@@ -52,6 +52,20 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 #     def __str__(self):
 #         return self.user_id
 
+class WishLists(models.Model):
+    """찜 목록 모델"""
+
+    product_name = models.CharField(max_length=255)
+    product_price = models.CharField(max_length=255)
+    product_image = models.TextField(default="")
+    product_site_link = models.TextField()
+    product_site_name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+
 class UserAccountsManager(BaseUserManager):
 
     def create_user(self, user_id, name, password=None):
@@ -84,6 +98,7 @@ class UserAccounts(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=200)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    wish_list = models.ForeignKey(WishLists, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now=True)
 
     objects = UserAccountsManager()
