@@ -104,13 +104,13 @@ class UserAccounts(AbstractBaseUser, PermissionsMixin):
 class WishLists(models.Model):
     """찜 목록 모델"""
 
+    user_id = models.ForeignKey(UserAccounts, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=255)
     product_price = models.CharField(max_length=255)
     product_image = models.TextField(default="")
     product_site_link = models.TextField()
     product_site_name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now=True)
-    user_id = models.ForeignKey(UserAccounts, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['-created_at']
