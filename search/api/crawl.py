@@ -81,20 +81,6 @@ def crawlilng(keyword):
 
             products_image.append(image_url)
 
-        # for i in range(len(images)):
-        #     if "adcr.naver.com" in images[i].find('a')['href']:
-        #         del_index.append(i)
-        #
-        # del_index.reverse()
-        # for i in del_index:
-        #     images.pop(i)
-        #
-        # for i in range(len(images)):
-        #     text = images[i].find('a')['href']
-        #     image_id = text[-26: -16]
-        #     products_image.append(
-        #         f'https://shopping-phinf.pstatic.net/main_{image_id[:7]}/{image_id}.jpg?type=f140')
-
         for mall_name in mall_names[:41]:
             mall_tag = mall_name.find('div', {'class': 'basicList_mall_title__3MWFY'})
             mall = mall_tag.find('a')
