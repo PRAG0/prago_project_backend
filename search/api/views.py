@@ -41,4 +41,4 @@ class SearchListView(View):
                 product_site_name=products_site_name[i],
             ).save()
 
-        return JsonResponse(list(models.SiteInfo.objects.values()), safe=False ,status=200)
+        return JsonResponse(list(models.SiteInfo.objects.values()), safe=False, status=200)
