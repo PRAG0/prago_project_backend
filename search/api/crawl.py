@@ -1,22 +1,19 @@
 import time
-import requests
+import json
 
 from bs4 import BeautifulSoup
 
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
-from selenium.common.exceptions import InvalidSessionIdException
 
 
 def crawlilng(keyword):
     prev_soup = ""
-    flag = 0
     products_name = []
     products_price = []
     products_image = []
     products_site_link = []
     products_site_name = []
-    del_index = []
 
     options = Options()
     options.headless = True
@@ -48,7 +45,7 @@ def crawlilng(keyword):
             last_height = new_height
 
         html = driver.page_source
-        driver.quit()
+        # driver.quit()
 
         soup = BeautifulSoup(html, 'html.parser')
         # if prev_soup == soup:
@@ -58,7 +55,7 @@ def crawlilng(keyword):
 
         names = ul.findAll('div', {'class': 'basicList_title__3P9Q7'})
         prices = ul.findAll('strong', {'class': 'basicList_price__2r23_'})
-        images = ul.findAll('div', {'class': 'thumbnail_thumb_wrap__1pEkS _wrapper'})
+        images = driver.find_element_by_xpath('//*[@id="__NEXT_DATA__"]')
         mall_names = ul.findAll('div', {'class': 'basicList_mall_area__lIA7R'})
         lis = ul.findAll('div', {'class': 'thumbnail_thumb_wrap__1pEkS _wrapper'})
 
@@ -70,20 +67,33 @@ def crawlilng(keyword):
             prt_price = price.find('span')
             products_price.append(prt_price.text)
 
+        json_text = json.loads(images.get_attribute('text'))
+        json_list = json_text['props']['pageProps']['initialState']['products']['list']
 
-        for i in range(len(images)):
-            if "adcr.naver.com" in images[i].find('a')['href']:
-                del_index.append(i)
+        for element in json_list:
+            item = element['item']
+            name = item['productName']
 
-        del_index.reverse()
-        for i in del_index:
-            images.pop(i)
+            if item.get('imageUrl') == None:
+                image_url = item.get('productImgUrl')
+            else:
+                image_url = item.get('imageUrl') + "?type=f300"
 
-        for i in range(len(images)):
-            text = images[i].find('a')['href']
-            image_id = text[-26: -16]
-            products_image.append(
-                f'https://shopping-phinf.pstatic.net/main_{image_id[:8]}/{image_id}.jpg?type=f140')
+            products_image.append(image_url)
+
+        # for i in range(len(images)):
+        #     if "adcr.naver.com" in images[i].find('a')['href']:
+        #         del_index.append(i)
+        #
+        # del_index.reverse()
+        # for i in del_index:
+        #     images.pop(i)
+        #
+        # for i in range(len(images)):
+        #     text = images[i].find('a')['href']
+        #     image_id = text[-26: -16]
+        #     products_image.append(
+        #         f'https://shopping-phinf.pstatic.net/main_{image_id[:7]}/{image_id}.jpg?type=f140')
 
         for mall_name in mall_names[:41]:
             mall_tag = mall_name.find('div', {'class': 'basicList_mall_title__3MWFY'})
@@ -103,5 +113,6 @@ def crawlilng(keyword):
             products_site_link.append(link['href'])
 
         prev_soup = soup
-    print(products_image[0])
+        driver.quit()
+
     return products_name, products_price, products_image, products_site_name, products_site_link
