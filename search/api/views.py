@@ -1,26 +1,15 @@
-from account import models
 from search.models import SiteInfo
 from .crawl import crawlilng
-from . import serializers
 
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-
-from rest_framework import viewsets
-from rest_framework.authentication import TokenAuthentication
-from account.api import permissions
 
 
 @method_decorator(csrf_exempt, name='dispatch')
 class SearchListView(View):
     def get(self, request):
-        products_name = []
-        products_price = []
-        products_image = []
-        products_site_name = []
-        products_site_link = []
         SiteInfo.objects.all().delete()
 
         query = request.GET.get('query')
@@ -45,11 +34,3 @@ class SearchListView(View):
             ).save()
 
         return JsonResponse(list(SiteInfo.objects.values()), safe=False, status=200)
-
-
-class WishListView(viewsets.ViewSet):
-    queryset = models.WishLists.objects.all()
-    serializer_class = serializers.WishListSerializer
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (permissions.UpdateOwnAccount,)
-
