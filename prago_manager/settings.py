@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
 
+    'debug_toolbar',
     'taggit',
 
     'account',
@@ -56,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'prago_manager.urls'
@@ -135,3 +138,8 @@ AUTH_USER_MODEL = 'account.UserAccounts'
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+INTERNAL_IPS = [
+    '192.168.137.1',
+    '127.0.0.1',
+]
