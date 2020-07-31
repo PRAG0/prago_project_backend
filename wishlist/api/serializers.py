@@ -1,23 +1,36 @@
 import requests
 import json
 
+from django.core.serializers.json import DjangoJSONEncoder
 from rest_framework import serializers
+from rest_framework.decorators import action
+
 from wishlist import models
+from account.models import UserAccounts
 
 from django.http import JsonResponse, HttpResponse
+from django.core.serializers import serialize
 
 
 class WishListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.WishLists
-        fields = ('user_id', 'product_name', 'product_price', 'product_image', 'product_site_link', 'product_site_name')
+        fields = (
+            'id',
+            'favor_user_id',
+            'product_name',
+            'product_price',
+            'product_image',
+            'product_site_link',
+            'product_site_name')
 
-    def list(self, request):
-        user_id = request.GET.get['user_id']
-        query = models.WishLists.objects.get(user_id=user_id)
+    def get(self, request):
+        favor_user_id = request.GET.get['favor_user_id']
+        query = models.WishLists.objects.get(user_id=favor_user_id)
         if query:
             return JsonResponse(
                 {
+                    "id": query.id,
                     "product_name": query.product_name,
                     "product_price": query.product_price,
                     "product_image": query.product_image,
@@ -27,34 +40,33 @@ class WishListSerializer(serializers.ModelSerializer):
         else:
             return HttpResponse(204)
 
-    def create(self, validated_data):
-        print(validated_data)
+    def post(self, validated_data):
         if validated_data:
-            dump_data = json.dumps(validated_data, ensure_ascii=False)
-            json_data = json.loads(dump_data)
-
-            if models.WishLists.objects.distinct(json_data['product_image']):
+            if models.WishLists.objects.filter(
+                    favor_user_id=validated_data['favor_user_id'], product_image=validated_data['product_image']).exists():
                 return HttpResponse(status=207)
             else:
                 models.WishLists(
-                    user_id=json_data['user_id'],
-                    product_name=json_data['product_name'],
-                    product_price=json_data['product_price'],
-                    product_image=json_data['product_image'],
-                    product_site_name=json_data['product_site_name'],
-                    product_site_link=json_data['product_site_link']
+                    favor_user_id=validated_data['favor_user_id'],
+                    product_name=validated_data['product_name'],
+                    product_price=validated_data['product_price'],
+                    product_image=validated_data['product_image'],
+                    product_site_name=validated_data['product_site_name'],
+                    product_site_link=validated_data['product_site_link']
                 ).save()
         else:
             return HttpResponse(status=204)
 
         return HttpResponse(status=200)
 
-    def desrtory(self, request):
+    def update(self, instance, validated_data):
         query = models.WishLists.objects.all()
 
-        if request['product_site_name'] in query:
-            models.WishLists.delete(product_site_name=request['product_site_name'])
-            return HttpResponse(status=200)
-
+        if validated_data['id'] in query:
+            instance = models.WishLists.objects.filter(
+                product_site_name=validated_data['product_site_name'],
+                favor_user_id=validated_data['favor_user_id']
+            ).delete()
+            return super().update(instance, validated_data)
         else:
             return HttpResponse(status=204)
