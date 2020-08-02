@@ -20,7 +20,7 @@ def crawlilng(keyword):
     options.add_argument('disable-gpu')
 
     for index in range(1, 2):
-        driver = webdriver.Chrome(executable_path=r'..\resources\chromedriver.exe', options=options)
+        driver = webdriver.Chrome(executable_path=r'C:\chromedriver_win32\chromedriver.exe', options=options)
         driver.get(
             f'https://search.shopping.naver.com/search/all?frm=NVSHATC&origQuery={keyword}&pagingIndex={index}&pagingSize=40&productSet=total&query={keyword}&sort=rel&timestamp=&viewType=list')
 
