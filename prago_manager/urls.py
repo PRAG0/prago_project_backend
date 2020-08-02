@@ -23,6 +23,7 @@ urlpatterns = [
     path('account_api/', include('account.api.urls')),
     path('search_api/', include('search.api.urls')),
     path('wishlist_api/', include('wishlist.api.urls')),
+    path('recommend_api/', include('recommend.api.urls')),
 ]
 
 
