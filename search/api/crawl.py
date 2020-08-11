@@ -59,13 +59,13 @@ def crawlilng(keyword):
         mall_names = ul.findAll('div', {'class': 'basicList_mall_area__lIA7R'})
         lis = ul.findAll('div', {'class': 'thumbnail_thumb_wrap__1pEkS _wrapper'})
 
-        for name in names[1:41]:
-            prt_name = name.find('a')
-            products_name.append(prt_name.text)
+        # for name in names[1:41]:
+        #     prt_name = name.find('a')
+        #     products_name.append(prt_name.text)
 
-        for price in prices[1:41]:
-            prt_price = price.find('span')
-            products_price.append(prt_price.text)
+        # for price in prices[1:41]:
+        #     prt_price = price.find('span')
+        #     products_price.append(prt_price.text)
 
         json_text = json.loads(images.get_attribute('text'))
         json_list = json_text['props']['pageProps']['initialState']['products']['list']
@@ -73,15 +73,19 @@ def crawlilng(keyword):
         for element in json_list:
             item = element['item']
             name = item['productName']
+            price = item['price']
 
             if item.get('imageUrl') == None:
                 image_url = item.get('productImgUrl')
             else:
                 image_url = item.get('imageUrl') + "?type=f300"
 
+            products_name.append(name)
+            products_price.append(price)
             products_image.append(image_url)
 
-        for mall_name in mall_names[:41]:
+
+        for mall_name in mall_names:
             mall_tag = mall_name.find('div', {'class': 'basicList_mall_title__3MWFY'})
             mall = mall_tag.find('a')
             if mall.text == "쇼핑몰별 최저가":
@@ -94,7 +98,7 @@ def crawlilng(keyword):
                 buffer = mall.find('img')
                 products_site_name.append(buffer['alt'])
 
-        for li in lis[1:41]:
+        for li in lis:
             link = li.find('a')
             products_site_link.append(link['href'])
 
